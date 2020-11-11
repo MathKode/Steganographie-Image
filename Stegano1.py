@@ -69,7 +69,7 @@ def see(file_name) :
     i = True
     while i :
         ligne, colonne = pixel_to_list_number(pixel,data)
-        valeur = data[ligne][colonne][0]
+        valeur = data[ligne][colonne][2]
         if valeur == 255 :
             i = False
         else :
@@ -163,15 +163,15 @@ def hide(file_name) :
     while i :
         ligne, colonne = pixel_to_list_number(pixel,data)
         if total > 254 :
-            data[ligne][colonne][0] = 254
+            data[ligne][colonne][2] = 254
         else :
-            data[ligne][colonne][0] = total
+            data[ligne][colonne][2] = total
             i = False
         total -= 254
         pixel+=1 
     #dis que c'est la fin de la longueur :
     ligne, colonne = pixel_to_list_number(pixel,data)
-    data[ligne][colonne][0] = 255
+    data[ligne][colonne][2] = 255
     pixel+=1
     #dis le type de Message :
     ligne, colonne = pixel_to_list_number(pixel,data) 
