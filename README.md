@@ -12,7 +12,7 @@ Ce code permet de cacher des messages dans une image. Par exemple :
 Il a 2 interfaces : graphique et en console
 > Graphique
 
-![](Picture/Img1)
+![](Picture/Img1.png)
 
 Comment Fonctionne-t-il ?
 Il va modifier la couleur Blue (RGB) des cubes en haut à gauche de l'image et, pour éviter d'être trop vu, va calculer la moyenne de la ligne à laquelle il va ajouter la valeur de la lettre :
