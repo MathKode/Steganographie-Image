@@ -37,11 +37,11 @@ Pour utiliser mon code, tu auras besoin de : tkinter, Pillow, numpy et os
 Image des modification sur une petite matrice
 > Avant :
 
-![](Picture/Zoom avant.png)
+![](Picture/Zoomavant.png)
 
 > Apres :
 
-![](Picture/Zoom apres.png)
+![](Picture/Zoomapres.png)
 
 ## Créateur :
 Ce projet à été crée par BiMathAx STUDIO.
