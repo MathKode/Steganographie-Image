@@ -11,6 +11,7 @@ Ce code permet de cacher des messages dans une image. Par exemple :
 
 Il a 2 interfaces : graphique et en console
 > Graphique
+
 ![](Picture/Img1)
 
 Comment Fonctionne-t-il ?
@@ -35,9 +36,11 @@ Pour utiliser mon code, tu auras besoin de : tkinter, Pillow, numpy et os
 ## Images
 Image des modification sur une petite matrice
 > Avant :
+
 ![](Picture/Zoom avant.png)
 
 > Apres :
+
 ![](Picture/Zoom apres.png)
 
 ## Créateur :
