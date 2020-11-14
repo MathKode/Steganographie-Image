@@ -1,5 +1,4 @@
 # Stenographie Picture
-> Ce projet a été créer par BiMathAx Studio
 
 Ce code permet de cacher des messages dans une image. Par exemple :
 
