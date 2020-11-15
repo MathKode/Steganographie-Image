@@ -25,28 +25,30 @@ def result_mms(final) :
     A = Entry(ereur,font=('Arial',10),width=800)
     A.pack()
     A.insert(0,final)
+    Entry_chemin_decrypt.delete(0,END)
     ereur.mainloop()
+    
     
 
 def key_ok() :
 
     key = key_entry.get()
-    file = open("pixel",'r')
+    file = open("pixel.txt",'r')
     pixel = int(file.read())
     file.close()
-    file = open("data","r")
+    file = open("data.txt","r")
     file_name = file.read()
     file.close()
-    file = open("longueur","r")
+    file = open("longueur.txt","r")
     longueur = int(file.read())
     file.close()
-    file = open("nb_color","r")
+    file = open("nb_color.txt","r")
     nb_color = int(file.read())
     print(nb_color)
-    os.remove('pixel')
-    os.remove('data')
-    os.remove('longueur')
-    os.remove('nb_color')
+    os.remove('pixel.txt')
+    os.remove('data.txt')
+    os.remove('longueur.txt')
+    os.remove('nb_color.txt')
     file.close()
     data = asarray(Image.open(str(file_name))).copy()
 
@@ -130,7 +132,12 @@ def result(way) :
     ereur.maxsize(1000,70)
     ereur.config(background="white")
     Label(ereur,text=f"L'image vient d'etre stenographié : \n{way}").pack()
+    Entry_chemin.delete(0,END)
+    Message_entry.delete(0,END)
+    Clef_entry.delete(0,END)
+    Crypt_checkbutton.deselect()
     ereur.mainloop()
+    
 
 def crypt(phrase,clef) :
     f = ""
@@ -243,16 +250,16 @@ def see(file_name) :
     Feature = valeur = data[ligne][colonne][2]
     if Feature == 1 :
         print('The Message is encrypted : enter the key')
-        file = open('pixel','w')
+        file = open('pixel.txt','w')
         file.write(str(pixel))
         file.close()
-        file = open('data','w')
+        file = open('data.txt','w')
         file.write(str(file_name))
         file.close()
-        file = open('longueur','w')
+        file = open('longueur.txt','w')
         file.write(str(longueur))
         file.close()
-        file = open('nb_color','w')
+        file = open('nb_color.txt','w')
         file.write(str(len(nb_color)))
         file.close()
         key_input()
