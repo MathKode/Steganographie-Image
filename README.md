@@ -27,7 +27,7 @@ valeur : a -> +1
          e -> +3
          ...
 ```
-## Instalation
+## Installation
 > Les modules dont vous aurez besoin
 
 Pour utiliser mon code, tu auras besoin de : tkinter, Pillow, numpy et os
