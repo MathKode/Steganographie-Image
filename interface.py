@@ -4,6 +4,7 @@ from PIL import Image
 from numpy import asarray
 import numpy as np
 import os
+import pdfstegano as h_pdf
 
 window = Tk()
 window.title('Steganagraphie')
@@ -28,7 +29,34 @@ def result_mms(final) :
     Entry_chemin_decrypt.delete(0,END)
     ereur.mainloop()
     
+def seepdfok() :
+    file = open('cheminpdf','r')
+    ls = file.read().split('\n')
+    file.close()
+    Chemin = ls[0]
+    clef = key_entry_pdf.get()
+    if clef == "" : clef = "a"
+    result = h_pdf.Show(Chemin,clef)
+    result_mms(result)
     
+
+def seepdf(Chemin) :
+    file = open('cheminpdf','w')
+    file.write(Chemin)
+    file.close()
+    ereur = Tk()
+    ereur.title('Déchiffrer')
+    ereur.geometry("400x70")
+    ereur.minsize(400,70)
+    ereur.maxsize(500,70)
+    ereur.config(background="white")
+    Label(ereur,text="Le contenu du document est obligatoirement chiffré, entrer la clef et appuyer sur ok").pack()
+    global key_entry_pdf
+    key_entry_pdf = Entry(ereur,font=("Arial",10),width=100)
+    key_entry_pdf.pack()
+    Button(ereur,text='ok',command=seepdfok).pack()
+    ereur.mainloop()
+        
 
 def key_ok() :
 
@@ -131,7 +159,7 @@ def result(way) :
     ereur.minsize(300,70)
     ereur.maxsize(1000,70)
     ereur.config(background="white")
-    Label(ereur,text=f"L'image vient d'etre stenographié : \n{way}").pack()
+    Label(ereur,text=f"L'image/pdf vient d'etre stenographié : \n{way}").pack()
     Entry_chemin.delete(0,END)
     Message_entry.delete(0,END)
     Clef_entry.delete(0,END)
@@ -191,41 +219,6 @@ def color_regular(pixel,data) :
     l=str(nb/total).split('.')
     result = int(l[0])
     return result
-
-def crypt(phrase,clef) :
-    f = ""
-    p = 0
-    for c in phrase :
-        t = 0;n=0
-        if p == len(clef) :
-            p = 0
-        for i in alphabet :
-            if i == c : n+=t
-            if clef[p] == i : n+=t
-            t+=1
-        if n > len(alphabet) :
-            n -= len(alphabet)
-        f+=alphabet[n]
-        p+=1
-    return f
-
-def decrypt(phrase,clef) :
-    f = ""
-    p = 0
-    for c in phrase :
-        t=0;m=0;cl=0
-        if p == len(clef) :
-            p = 0
-        for i in alphabet :
-            if i == c : m=t
-            if i == clef[p] : cl=t
-            t+=1
-        n = m-cl
-        if n < 0 :
-            n+=len(alphabet)
-        f+=alphabet[n]
-        p+=1
-    return f
 
 global alphabet
 alphabet=[]
@@ -444,26 +437,41 @@ def hidetkinter() :
     Feature = choix.get()
     print(Feature)
     Chemin = Entry_chemin.get()
+    ls = Chemin.split('.')
+    extension = str(ls[-1]).lower()
     if Choix == 1 :
         Clef = Clef_entry.get()
         if Message == "" or Clef == "" or Chemin == "" :   
             erreur()
         else :
             sentence = crypt(Message,Clef)
-            hide(Chemin,sentence,Feature)
+            if extension == 'pdf' :
+                h_pdf.Hide(Chemin,Message,Clef)
+                result(Chemin)
+            else :
+                hide(Chemin,sentence,Feature)
     else :
         Clef = ""
         if Message == "" or Chemin == "":
             erreur()
         else :
-            hide(Chemin,Message,Feature)
+            if extension == 'pdf' :
+                h_pdf.Hide(Chemin,Message,"a")
+                result(Chemin)
+            else :
+                hide(Chemin,sentence,Feature)
 
 def showtkinter() :
     Chemin = Entry_chemin_decrypt.get()
+    ls = Chemin.split('.')
+    extension = str(ls[-1]).lower()
     if Chemin == "" :
         erreur()
     else :
-        see(Chemin)
+        if extension == "pdf" :
+            seepdf(Chemin)
+        else :
+            see(Chemin)
 
 Frame(window,bg="#414C7B",height=10).pack()
 
@@ -512,7 +520,7 @@ Clef_entry.grid(row=4,column=2)
 
 Frame(Message_paragraphe,bg='#414C7B',height=20).grid(row=5,column=1)
 
-button_explore = Button(Message_paragraphe, text="Select A Picture",width=16, command=browse_file)
+button_explore = Button(Message_paragraphe, text="Select A Picture/Pdf",width=16, command=browse_file)
 button_explore.grid(row=6,column=2)
 
 global Entry_chemin
@@ -534,7 +542,7 @@ Frame(Dercypt_frame,bg="#414C7B",width=30,height=3).grid(row=0,column=0)
 Frame(Dercypt_frame,bg="#414C7B",width=300,height=3).grid(row=0,column=3)
 Label(Dercypt_frame,bg="#414C7B",text="Image Modify :    ",font=("Arial",15)).grid(row=1,column=0)
 Frame(Dercypt_frame,bg="#414C7B",width=300,height=5).grid(row=2,column=3)
-button_explore = Button(Dercypt_frame, text="Select A Picture",width=16, command=browse_file2)
+button_explore = Button(Dercypt_frame, text="Select A Picture/Pdf",width=16, command=browse_file2)
 button_explore.grid(row=3,column=1)
 
 global Entry_chemin_decrypt
