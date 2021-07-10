@@ -1,3 +1,5 @@
+> Un projet plus discret et plus optimisé a été crée : Steganographie 2
+
 # Stenographie Picture
 
 Ce code permet de cacher des messages dans une image. Par exemple :
